@@ -28,8 +28,11 @@ else:
     number_of_plates = int(argvs[1])
 
 color = (8, 57, 62)
-#fontpath = "/usr/share/fonts/TTF/RictyDiscord-Regular.ttf"
 fontpath = "/usr/share/fonts/TTF/TakaoPGothic.ttf"
+if not (os.path.exists(fontpath)):
+    print("Font not found in " + fontpath)
+    fontpath = "/usr/share/fonts/truetype/fonts-japanese-gothic.ttf"
+
 
 def draw_number(img, text):
     draw = PIL.ImageDraw.Draw(img)
