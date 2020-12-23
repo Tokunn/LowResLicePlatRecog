@@ -12,12 +12,13 @@ import PIL.ImageFilter
 import PIL.ImageOps
 import matplotlib.pyplot as plt
 import os, random, time, datetime, math, sys, shutil
-from keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img, array_to_img
+from keras.preprocessing.image import ImageDataGenerator, img_to_array, array_to_img
 
 
 # In[ ]:
 
-shutil.rmtree('../php/imgs/')
+if os.path.exists('../php/imgs/'):
+    shutil.rmtree('../php/imgs/')
 os.mkdir('../php/imgs')
 
 argvs = sys.argv
@@ -40,7 +41,7 @@ def draw_number(img, text):
     
     img_size = np.array(img.size)
     txt_size = np.array(draw.font.getsize(text))
-    pos = (img_size - txt_size) / 2
+    pos = (img_size - txt_size) // 2
     draw.text(np.array([50, 55]), text, fill=color)
     
 def draw_char(img, text):
@@ -59,7 +60,7 @@ def draw_country(img, text, num):
     img_size = np.array(img.size)
     text += ' ' + num
     txt_size = np.array(draw.font.getsize(text))
-    pos = (img_size - txt_size) / 2
+    pos = (img_size - txt_size) // 2
     draw.text(np.array([pos[1], 10]), text, fill=color)
  
 
@@ -105,7 +106,7 @@ def make_license_plates(country, country_number, char, number):
         os.mkdir('../php/imgs/{0}'.format(number[:2]+number[3:]))
     for i in range(5, 15, 4):
         #img_filed = img.filter(PIL.ImageFilter.GaussianBlur(radius=i))
-        img_filed = img.resize((img.width/i, img.height/i))
+        img_filed = img.resize((img.width//i, img.height//i))
         img_filed.save('../php/imgs/{0}/{1}.png'.format(number[:2]+number[3:], i))
         #plt.imshow(np.asarray(img_filed))
         #plt.show()
